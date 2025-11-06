@@ -150,6 +150,8 @@ body.no-scroll {
   -webkit-text-fill-color: transparent;
   background-clip: text;
   text-decoration: none;
+  /* Add flex-shrink: 0 to prevent logo from shrinking if needed */
+  flex-shrink: 0; 
 }
 
 .logo img {
@@ -164,6 +166,9 @@ body.no-scroll {
   list-style: none;
   gap: 32px;
   align-items: center;
+  /* Add this to make sure it's in the middle */
+  flex-grow: 1;
+  justify-content: center;
 }
 
 .nav-links a {
@@ -196,25 +201,41 @@ body.no-scroll {
   left: 0;
 }
 
-.nav-links .cta-btn {
+/* --- CHANGED SECTION START --- */
+
+/* CTA Button styles are now global */
+.cta-btn {
   background: var(--gradient-primary);
-  color: white;
+  color: white !important; /* !important to override .nav-links a color */
   padding: 10px 24px;
   border-radius: 24px; /* Rounded feature */
   transition: all 0.3s ease;
   position: relative;
   overflow: hidden;
   z-index: 1;
+  text-decoration: none; /* Added this */
+  display: inline-block; /* Added this */
+  flex-shrink: 0; /* Prevent button from shrinking */
+  white-space: nowrap; /* Prevent text wrap */
 }
 
-.nav-links .cta-btn::after {
-  display: none;
+/* Make sure .cta-btn does not get the underline effect */
+.cta-btn::after {
+  display: none !important;
 }
 
-.nav-links .cta-btn:hover {
+.cta-btn:hover {
   transform: translateY(-2px);
   box-shadow: 0 8px 24px rgba(158, 127, 255, 0.4);
 }
+
+/* Hide the mobile-only button on desktop */
+.mobile-cta {
+  display: none;
+}
+
+/* --- CHANGED SECTION END --- */
+
 
 /* Hamburger Menu */
 .hamburger {
@@ -895,6 +916,9 @@ body.no-scroll {
     justify-content: center;
     transition: right 0.3s ease;
     border-left: 1px solid rgba(158, 127, 255, 0.2);
+    /* Make .nav-links take up space for justification */
+    flex-grow: 1; 
+    justify-content: center;
   }
 
   .nav-links.active {
@@ -904,6 +928,28 @@ body.no-scroll {
   .hamburger {
     display: flex;
   }
+
+  /* --- ADDED SECTION START --- */
+  
+  /* Hide the desktop button on mobile */
+  .desktop-cta {
+    display: none;
+  }
+  
+  /* Show the mobile button in the slide-out menu */
+  .mobile-cta {
+    display: list-item;
+    width: 100%;
+  }
+  
+  /* Style the button inside the mobile menu */
+  .mobile-cta .cta-btn {
+    text-align: center;
+    width: 90%;
+    margin: 16px auto 0;
+  }
+  
+  /* --- ADDED SECTION END --- */
 
   .portfolio-grid {
     grid-template-columns: 1fr;

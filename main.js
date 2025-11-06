@@ -42,24 +42,29 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Contact form submission
   if (contactForm) {
-    contactForm.addEventListener('submit', (e) => {
-      e.preventDefault();
+    /* // FIX: Is poore block ko comment out kar diya gaya hai.
+      // Ab hum FormSubmit ka istemaal kar rahe hain, isliye JavaScript ko
+      // form submit karne se rokne (preventDefault) ki zaroorat nahi hai.
+      
+      contactForm.addEventListener('submit', (e) => {
+        e.preventDefault();
 
-      const formData = {
-        name: document.getElementById('name').value,
-        email: document.getElementById('email').value,
-        service: document.getElementById('service').value,
-        message: document.getElementById('message').value
-      };
+        const formData = {
+          name: document.getElementById('name').value,
+          email: document.getElementById('email').value,
+          service: document.getElementById('service').value,
+          message: document.getElementById('message').value
+        };
 
-      console.log('Form submitted:', formData);
+        console.log('Form submitted:', formData);
 
-      // In a real application, you would send this data to a server.
-      // For this example, we'll just show an alert.
-      alert('Thank you for your message! We will get back to you soon.');
+        // In a real application, you would send this data to a server.
+        // For this example, we'll just show an alert.
+        alert('Thank you for your message! We will get back to you soon.');
 
-      contactForm.reset();
-    });
+        contactForm.reset();
+      });
+    */
   }
 
   // Intersection Observer for scroll animations
