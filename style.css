@@ -289,20 +289,25 @@ body.no-scroll {
   width: 100%;
   height: 100%;
   overflow: hidden;
-  z-index: 0; /* Ensures it's behind the content */
+  z-index: 0; 
 }
 
 .video-background-container iframe {
-  /* This ensures the video covers the entire container, even if the aspect ratio is different */
+  /* FINAL ROBUST COVER FIX: 
+     Uses 'max' to ensure the 16:9 video's dimensions are always larger than 
+     the viewport's dimensions, guaranteeing 100% cover (full zoom) 
+     without vertical clipping on tall screens (mobile portrait).
+  */
   position: absolute;
   top: 50%;
   left: 50%;
-  width: 100vw;
-  height: 56.25vw; /* 100 / 16 * 9 = 56.25 - maintains 16:9 aspect ratio */
-  min-width: 100%;
-  min-height: 100%;
+  
+  /* यह 16:9 Aspect Ratio को बनाए रखते हुए पूरे Viewport को Cover करता है */
+  width: max(100vw, calc(100vh * 16 / 9));
+  height: max(100vh, calc(100vw * 9 / 16));
+  
   transform: translate(-50%, -50%);
-  pointer-events: none; /* Allows clicks to pass through to the content behind */
+  pointer-events: none;
 }
 
 /* Tint/Overlay for better readability and blue/purple color effect (as requested) */
@@ -1043,3 +1048,118 @@ body.no-scroll {
     padding: 0; /* Remove padding for video items on small screens if needed */
   }
 }
+/* ***** UPDATED: VIDEO BACKGROUND STYLES START ***** */
+.video-background-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  z-index: 0; 
+}
+
+.video-background-container iframe {
+  /* FINAL ROBUST COVER FIX: 
+     Uses 'max' to ensure the 16:9 video's dimensions are always larger than 
+     the viewport's dimensions, guaranteeing 100% cover (full zoom) 
+     without vertical clipping on tall screens (mobile portrait).
+  */
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  
+  /* यह 16:9 Aspect Ratio को बनाए रखते हुए पूरे Viewport को Cover करता है */
+  width: max(100vw, calc(100vh * 16 / 9));
+  height: max(100vh, calc(100vw * 9 / 16));
+  
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+}
+
+/* Tint/Overlay for better readability and blue/purple color effect (as requested) */
+.video-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  /* Dark overlay for readability + Blue/Purple tint */
+  background: linear-gradient(
+    45deg,
+    rgba(158, 127, 255, 0.4) 0%, /* Primary Purple/Blue Tint */
+    rgba(23, 23, 23, 0.8) 50%, /* Dark Background for Text */
+    rgba(176, 159, 255, 0.4) 100% /* Secondary Purple/Blue Tint */
+  );
+  z-index: 1; /* Above the video, below the content */
+}
+
+.hero-content {
+  /* Ensure content is on top of the video and overlay */
+  z-index: 2;
+  text-align: center;
+  max-width: 900px;
+  padding: 24px;
+  margin-top: 80px;
+}
+/* ***** UPDATED: VIDEO BACKGROUND STYLES END ***** */
+
+/* Hero Section */
+.hero {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  background: var(--background); 
+  overflow: hidden;
+}
+
+/* ***** UPDATED: VIDEO BACKGROUND STYLES START (FOR <video> TAG) ***** */
+.video-background-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  z-index: 0; /* Ensures it's behind the content */
+}
+
+.video-background-container video {
+  /* Use object-fit: cover for local video files - Most reliable method */
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Ensures video covers 100% of the container, no top/bottom cutting */
+  position: absolute;
+  top: 0;
+  left: 0;
+  pointer-events: none; /* Allows clicks to pass through to the content behind */
+}
+
+/* Tint/Overlay for better readability and blue/purple color effect (as requested) */
+.video-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  /* Dark overlay for readability + Blue/Purple tint */
+  background: linear-gradient(
+    45deg,
+    rgba(158, 127, 255, 0.4) 0%, /* Primary Purple/Blue Tint */
+    rgba(23, 23, 23, 0.8) 50%, /* Dark Background for Text */
+    rgba(176, 159, 255, 0.4) 100% /* Secondary Purple/Blue Tint */
+  );
+  z-index: 1; /* Above the video, below the content */
+}
+
+.hero-content {
+  /* Ensure content is on top of the video and overlay */
+  z-index: 2;
+  text-align: center;
+  max-width: 900px;
+  padding: 24px;
+  margin-top: 80px;
+}
+/* ***** UPDATED: VIDEO BACKGROUND STYLES END ***** */
